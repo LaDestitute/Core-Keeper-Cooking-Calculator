@@ -1,23 +1,41 @@
 // --- Step 1: Ingredient Data ---
 const ingredients = [
     {
-        id: "bomb_pepper",
-        name: "Bomb Pepper",
+        id: "mushroom",
+        name: "Mushroom",
         rarity: {
             regular: {
-                food: 15,
-                healthRegen: { value: 2.8, duration: 20 },
-                meleeDamage: { value: 17.1, duration: 10 },
+                food: 19,
+                healthRegen: { value: 4.2, duration: 20 },
             },
             rare: {
-                food: 18,
-                healthRegen: { value: 3.2, duration: 20 },
-                meleeDamage: { value: 21.3, duration: 10 },
+                food: 24,
+                healthRegen: { value: 5.2, duration: 20 },
             },
             epic: {
-                food: 21,
-                healthRegen: { value: 3.6, duration: 20 },
-                meleeDamage: { value: 25.6, duration: 10 },
+                food: 28,
+                healthRegen: { value: 6.3, duration: 20 },
+            },
+        }
+    },
+    {
+        id: "giant_mushroom",
+        name: "Giant Mushroom",
+        rarity: {
+            regular: {
+                food: 31,
+                permMaxHealth: { value: 25 },
+                maxHealth: { value: 24, duration: 10 },
+            },
+            rare: {
+                food: 39,
+                permMaxHealth: { value: 25 },
+                maxHealth: { value: 30, duration: 10 },
+            },
+            epic: {
+                food: 46,
+                permMaxHealth: { value: 25 },
+                maxHealth: { value: 36, duration: 10 },
             },
         }
     },
@@ -26,23 +44,682 @@ const ingredients = [
         name: "Heart Berry",
         rarity: {
             regular: {
-                food: 31,
-                healthRegen: { value: 0.8, duration: 20 },
-                maxHealth: { value: 24, duration: 10 },
-                permMaxHealth: { value: 25 }
+                food: 19,
+                maxHealth: { value: 25, duration: 10 },
+                healthRegen: { value: 2.8, duration: 20 },
             },
             rare: {
-                food: 39,
-                healthRegen: { value: 1.0, duration: 20 },
-                maxHealth: { value: 30, duration: 10 },
-                permMaxHealth: { value: 25 }
+                food: 24,
+                maxHealth: { value: 31, duration: 10 },
+                healthRegen: { value: 3.5, duration: 20 },
             },
             epic: {
-                food: 46,
-                healthRegen: { value: 1.2, duration: 20 },
-                maxHealth: { value: 36, duration: 10 },
-                permMaxHealth: { value: 25 }
+                food: 28,
+                maxHealth: { value: 38, duration: 10 },
+                healthRegen: { value: 4.2, duration: 20 },
             },
+        }
+    },
+    {
+        id: "golden_heart_berry",
+        name: "Golden Heart Berry",
+        rarity: {
+            regular: {
+                food: 18,
+                maxHealth: { value: 50, duration: 10 },
+                healthRegen: { value: 4.4, duration: 20 },
+                physicalMeleeDamage: { value: 17.1, duration: 10 },
+            },
+            rare: {
+                food: 22,
+                maxHealth: { value: 62, duration: 10 },
+                healthRegen: { value: 5.5, duration: 20 },
+                physicalMeleeDamage: { value: 21.4, duration: 10 },
+            },
+            epic: {
+                food: 27,
+                maxHealth: { value: 75, duration: 10 },
+                healthRegen: { value: 6.6, duration: 20 },
+                physicalMeleeDamage: { value: 25.6, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "glow_tulip",
+        name: "Glow Tulip",
+        rarity: {
+            regular: {
+                food: 2,
+                blueGlow: { value: 5, duration: 10 },
+                manaRegen: { value: 1.4, duration: 10 },
+            },
+            rare: {
+                food: 2,
+                blueGlow: { value: 6, duration: 10 },
+                manaRegen: { value: 1.8, duration: 10 },
+            },
+            epic: {
+                food: 3,
+                blueGlow: { value: 8, duration: 10 },
+                manaRegen: { value: 2.1, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "golden_glow_tulip",
+        name: "Golden Glow Tulip",
+        rarity: {
+            regular: {
+                food: 2,
+                blueGlow: { value: 6, duration: 10 },
+                manaRegen: { value: 2.3, duration: 10 },
+                maxMana: { value: 25, duration: 10 },
+            },
+            rare: {
+                food: 2,
+                blueGlow: { value: 8, duration: 10 },
+                manaRegen: { value: 2.9, duration: 10 },
+                maxMana: { value: 31, duration: 10 },
+            },
+            epic: {
+                food: 3,
+                blueGlow: { value: 9, duration: 10 },
+                manaRegen: { value: 3.4, duration: 10 },
+                maxMana: { value: 38, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "bomb_pepper",
+        name: "Bomb Pepper",
+        rarity: {
+            regular: {
+                food: 10,
+                movementSpeed: { value: 21, duration: 1 },
+            },
+            rare: {
+                food: 12,
+                movementSpeed: { value: 26.2, duration: 1 },
+            },
+            epic: {
+                food: 15,
+                movementSpeed: { value: 31.5, duration: 1 },
+            },
+        }
+    },
+    {
+        id: "golden_bomb_pepper",
+        name: "Golden Bomb Pepper",
+        rarity: {
+            regular: {
+                food: 11,
+                movementSpeed: { value: 26.9, duration: 1 },
+                meleeAttackSpeed: { value: 8.9, duration: 10 },
+            },
+            rare: {
+                food: 14,
+                movementSpeed: { value: 33.6, duration: 1 },
+                meleeAttackSpeed: { value: 11.1, duration: 10 },
+            },
+            epic: {
+                food: 16,
+                movementSpeed: { value: 40.4, duration: 1 },
+                meleeAttackSpeed: { value: 13.4, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "carrock",
+        name: "Carrock",
+        rarity: {
+            regular: {
+                food: 15,
+                armor: { value: 23, duration: 10 },
+            },
+            rare: {
+                food: 19,
+                armor: { value: 29, duration: 10 },
+            },
+            epic: {
+                food: 22,
+                armor: { value: 34, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "golden_carrock",
+        name: "Golden Carrock",
+        rarity: {
+            regular: {
+                food: 13,
+                armor: { value: 26, duration: 10 },
+                knockbackChance: { value: 18, duration: 2 },
+            },
+            rare: {
+                food: 16,
+                armor: { value: 32, duration: 10 },
+                knockbackChance: { value: 22, duration: 2 },
+            },
+            epic: {
+                food: 20,
+                armor: { value: 39, duration: 10 },
+                knockbackChance: { value: 27, duration: 2 },
+            },
+        }
+    },
+    {
+        id: "puffungi",
+        name: "Puffungi",
+        rarity: {
+            regular: {
+                food: 10,
+                reducedBossDamage: { value: 6, duration: 10 },
+                healthRegen: { value: 5.5, duration: 20 },
+            },
+            rare: {
+                food: 12,
+                reducedBossDamage: { value: 8, duration: 10 },
+                healthRegen: { value: 6.9, duration: 20 },
+            },
+            epic: {
+                food: 15,
+                reducedBossDamage: { value: 9, duration: 10 },
+                healthRegen: { value: 8.2, duration: 20 },
+            },
+        }
+    },
+    {
+        id: "golden_puffungi",
+        name: "Golden Puffungi",
+        rarity: {
+            regular: {
+                food: 10,
+                reducedBossDamage: { value: 9, duration: 10 },
+                healthRegen: { value: 7.9, duration: 20 },
+                damageAgainstBosses: { value: 14, duration: 1 },
+            },
+            rare: {
+                food: 12,
+                reducedBossDamage: { value: 11, duration: 10 },
+                healthRegen: { value: 9.9, duration: 20 },
+                damageAgainstBosses: { value: 18, duration: 1 },
+            },
+            epic: {
+                food: 15,
+                reducedBossDamage: { value: 14, duration: 10 },
+                healthRegen: { value: 11.8, duration: 20 },
+                damageAgainstBosses: { value: 21, duration: 1 },
+            },
+        }
+    },
+    {
+        id: "bloat_oat",
+        name: "Bloat Oat",
+        rarity: {
+            regular: {
+                food: 43,
+                healthRegen: { value: 9.1, duration: 20 },
+            },
+            rare: {
+                food: 54,
+                healthRegen: { value: 11.4, duration: 20 },
+            },
+            epic: {
+                food: 64,
+                healthRegen: { value: 13.6, duration: 20 },
+            },
+        }
+    },
+    {
+        id: "golden_bloat_oat",
+        name: "Golden Bloat Oat",
+        rarity: {
+            regular: {
+                food: 42,
+                healthRegen: { value: 12.1, duration: 20 },
+                lessFoodDrained: { value: 10, duration: 10 },
+            },
+            rare: {
+                food: 52,
+                healthRegen: { value: 15.1, duration: 20 },
+                lessFoodDrained: { value: 12, duration: 10 },
+            },
+            epic: {
+                food: 63,
+                healthRegen: { value: 18.2, duration: 20 },
+                lessFoodDrained: { value: 15, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "pewpaya",
+        name: "Pewpaya",
+        rarity: {
+            regular: {
+                food: 20,
+                healthRegen: { value: 6.3, duration: 20 },
+                physicalRangeDamage: { value: 22.4, duration: 10 },
+            },
+            rare: {
+                food: 25,
+                healthRegen: { value: 7.9, duration: 20 },
+                physicalRangeDamage: { value: 28, duration: 10 },
+            },
+            epic: {
+                food: 30,
+                healthRegen: { value: 9.4, duration: 20 },
+                physicalRangeDamage: { value: 33.6, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "golden_pewpaya",
+        name: "Golden Pewpaya",
+        rarity: {
+            regular: {
+                food: 21,
+                healthRegen: { value: 8.2, duration: 20 },
+                physicalRangeDamage: { value: 28.2, duration: 10 },
+                rangeAttackSpeed: { value: 8.4, duration: 10 },
+            },
+            rare: {
+                food: 26,
+                healthRegen: { value: 10.2, duration: 20 },
+                physicalRangeDamage: { value: 35.2, duration: 10 },
+                rangeAttackSpeed: { value: 10.5, duration: 10 },
+            },
+            epic: {
+                food: 32,
+                healthRegen: { value: 12.3, duration: 20 },
+                physicalRangeDamage: { value: 42.3, duration: 10 },
+                rangeAttackSpeed: { value: 12.6, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "pinegrapple",
+        name: "Pinegrapple",
+        rarity: {
+            regular: {
+                food: 20,
+                healthRegen: { value: 5.4, duration: 20 },
+                physicalMeleeDamage: { value: 22.4, duration: 10 },
+            },
+            rare: {
+                food: 25,
+                healthRegen: { value: 6.8, duration: 20 },
+                physicalMeleeDamage: { value: 28, duration: 10 },
+            },
+            epic: {
+                food: 30,
+                healthRegen: { value: 8.1, duration: 20 },
+                physicalMeleeDamage: { value: 33.6, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "golden_pinegrapple",
+        name: "Golden Pinegrapple",
+        rarity: {
+            regular: {
+                food: 21,
+                healthRegen: { value: 9, duration: 20 },
+                physicalMeleeDamage: { value: 28.2, duration: 10 },
+                meleeAttackSpeed: { value: 8.4, duration: 10 },
+            },
+            rare: {
+                food: 26,
+                healthRegen: { value: 11.2, duration: 20 },
+                physicalMeleeDamage: { value: 35.2, duration: 10 },
+                meleeAttackSpeed: { value: 10.5, duration: 10 },
+            },
+            epic: {
+                food: 32,
+                healthRegen: { value: 13.5, duration: 20 },
+                physicalMeleeDamage: { value: 42.3, duration: 10 },
+                meleeAttackSpeed: { value: 12.6, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "sunrice",
+        name: "Sunrice",
+        rarity: {
+            regular: {
+                food: 13,
+                glow: { value: 4, duration: 10 },
+                magicDamage: { value: 30, duration: 10 },
+            },
+            rare: {
+                food: 16,
+                glow: { value: 5, duration: 10 },
+                magicDamage: { value: 37.5, duration: 10 },
+            },
+            epic: {
+                food: 20,
+                glow: { value: 6, duration: 10 },
+                magicDamage: { value: 45, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "golden_sunrice",
+        name: "Golden Sunrice",
+        rarity: {
+            regular: {
+                food: 13,
+                glow: { value: 4, duration: 10 },
+                magicDamage: { value: 43.3, duration: 10 },
+                magicBarrier: { value: 49, duration: 10 },
+            },
+            rare: {
+                food: 16,
+                glow: { value: 5, duration: 10 },
+                magicDamage: { value: 54.1, duration: 10 },
+                magicBarrier: { value: 61, duration: 10 },
+            },
+            epic: {
+                food: 20,
+                glow: { value: 6, duration: 10 },
+                magicDamage: { value: 65, duration: 10 },
+                magicBarrier: { value: 74, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "lunacorn",
+        name: "Lunacorn",
+        rarity: {
+            regular: {
+                food: 13,
+                blueGlow: { value: 4, duration: 10 },
+                minionDamage: { value: 30, duration: 10 },
+            },
+            rare: {
+                food: 16,
+                blueGlow: { value: 5, duration: 10 },
+                minionDamage: { value: 37.5, duration: 10 },
+            },
+            epic: {
+                food: 20,
+                blueGlow: { value: 6, duration: 10 },
+                minionDamage: { value: 45, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "golden_lunacorn",
+        name: "Golden Lunacorn",
+        rarity: {
+            regular: {
+                food: 14,
+                blueGlow: { value: 4, duration: 10 },
+                minionDamage: { value: 39.5, duration: 10 },
+                minionAttackSpeed: { value: 55.2, duration: 10 },
+            },
+            rare: {
+                food: 18,
+                blueGlow: { value: 5, duration: 10 },
+                minionDamage: { value: 49.4, duration: 10 },
+                minionAttackSpeed: { value: 69, duration: 10 },
+            },
+            epic: {
+                food: 21,
+                blueGlow: { value: 6, duration: 10 },
+                minionDamage: { value: 59.2, duration: 10 },
+                minionAttackSpeed: { value: 82.8, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "dodo_egg",
+        name: "Dodo Egg",
+        rarity: {
+            regular: {
+                food: 30,
+                healthRegen: { value: 4.3, duration: 20 },
+                healingRegeneration: { value: 25, duration: 10 },
+            },
+            rare: {
+                food: 38,
+                healthRegen: { value: 5.4, duration: 20 },
+                healingRegeneration: { value: 31, duration: 10 },
+            },
+            epic: {
+                food: 45,
+                healthRegen: { value: 6.4, duration: 20 },
+                healingRegeneration: { value: 38, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "marbled_meat",
+        name: "Marbled Meat",
+        rarity: {
+            regular: {
+                food: 27,
+                healthRegen: { value: 2.6, duration: 20 },
+                damage: { value: 13.3, duration: 10 },
+            },
+            rare: {
+                food: 34,
+                healthRegen: { value: 3.2, duration: 20 },
+                damage: { value: 16.6, duration: 10 },
+            },
+            epic: {
+                food: 40,
+                healthRegen: { value: 3.9, duration: 20 },
+                damage: { value: 20, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "larva_meat",
+        name: "Larva Meat",
+        rarity: {
+            regular: {
+                food: 22,
+                healthRegen: { value: 2.8, duration: 20 },
+                criticalHitChance: { value: 6, duration: 10 },
+            },
+            rare: {
+                food: 28,
+                healthRegen: { value: 3.5, duration: 20 },
+                criticalHitChance: { value: 8, duration: 10 },
+            },
+            epic: {
+                food: 33,
+                healthRegen: { value: 4.2, duration: 20 },
+                criticalHitChance: { value: 9, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "shiny_larva_meat",
+        name: "Shiny Larva Meat",
+        rarity: {
+            regular: {
+                food: 25,
+                criticalHitChance: { value: 13, duration: 10 },
+                lifeOnMeleeHit: { value: 4, duration: 10 },
+            },
+            rare: {
+                food: 31,
+                criticalHitChance: { value: 16, duration: 10 },
+                lifeOnMeleeHit: { value: 5, duration: 10 },
+            },
+            epic: {
+                food: 38,
+                criticalHitChance: { value: 20, duration: 10 },
+                lifeOnMeleeHit: { value: 6, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "amber_larva",
+        name: "Amber Larva",
+        rarity: {
+            regular: {
+                food: 21,
+                permMaxHealth: { value: 50 },
+                maxHealth: { value: 52, duration: 5 },
+            },
+            rare: {
+                food: 26,
+                permMaxHealth: { value: 50 },
+                maxHealth: { value: 65, duration: 5 },
+            },
+            epic: {
+                food: 32,
+                permMaxHealth: { value: 50 },
+                maxHealth: { value: 78, duration: 5 },
+            },
+        }
+    },
+    {
+        id: "atlantean_worm_heart",
+        name: "Atlantean Worm Heart",
+        rarity: {
+            regular: {
+                food: 27,
+                healthRegenToAllies: { value: 20, duration: 20 },
+                permMaxHealth: { value: 100 },
+            },
+            rare: {
+                food: 34,
+                healthRegenToAllies: { value: 25, duration: 20 },
+                permMaxHealth: { value: 100 },
+            },
+            epic: {
+                food: 40,
+                healthRegenToAllies: { value: 30, duration: 20 },
+                permMaxHealth: { value: 100 },
+            },
+        }
+    },
+    {
+        id: "grumpkin",
+        name: "Grumpkin",
+        rarity: {
+            regular: {
+                food: 21,
+                healthRegen: { value: 4.3, duration: 20 },
+                miningDamage: { value: 45, duration: 10 },
+            },
+            rare: {
+                food: 26,
+                healthRegen: { value: 5.4, duration: 20 },
+                miningDamage: { value: 56, duration: 10 },
+            },
+            epic: {
+                food: 32,
+                healthRegen: { value: 6.4, duration: 20 },
+                miningDamage: { value: 68, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "golden_grumpkin",
+        name: "Golden Grumpkin",
+        rarity: {
+            regular: {
+                food: 18,
+                healthRegen: { value: 6.2, duration: 20 },
+                miningDamage: { value: 71, duration: 10 },
+                miningSpeed: { value: 7.2, duration: 10 },
+            },
+            rare: {
+                food: 22,
+                healthRegen: { value: 7.8, duration: 20 },
+                miningDamage: { value: 89, duration: 10 },
+                miningSpeed: { value: 9, duration: 10 },
+            },
+            epic: {
+                food: 27,
+                healthRegen: { value: 9.3, duration: 20 },
+                miningDamage: { value: 106, duration: 10 },
+                miningSpeed: { value: 10.8, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "orange_cave_guppy",
+        name: "Orange Cave Guppy",
+        rarity: {
+            regular: {
+                food: 19,
+                healthRegen: { value: 2.1, duration: 20 },
+                miningDamage: { value: 8, duration: 10 },
+            },
+            rare: {
+                food: 24,
+                healthRegen: { value: 2.6, duration: 20 },
+                miningDamage: { value: 10, duration: 10 },
+            },
+            epic: {
+                food: 28,
+                healthRegen: { value: 3.2, duration: 20 },
+                miningDamage: { value: 12, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "blue_cave_guppy",
+        name: "Blue Cave Guppy",
+        rarity: {
+            regular: {
+                food: 21,
+                healthRegen: { value: 2.2, duration: 20 },
+                magicBarrier: { value: 13, duration: 10 },
+            },
+            rare: {
+                food: 26,
+                healthRegen: { value: 2.8, duration: 20 },
+                magicBarrier: { value: 16, duration: 10 },
+            },
+            epic: {
+                food: 32,
+                healthRegen: { value: 3.3, duration: 20 },
+                magicBarrier: { value: 20, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "rock_jaw",
+        name: "Rock Jaw",
+        rarity: {
+            regular: {
+                food: 22,
+                healthRegen: { value: 2.5, duration: 20 },
+                physicalMeleeDamage: { value: 15.9, duration: 10 },
+            },
+            rare: {
+                food: 28,
+                healthRegen: { value: 3.1, duration: 20 },
+                physicalMeleeDamage: { value: 19.9, duration: 10 },
+            },
+            epic: {
+                food: 33,
+                healthRegen: { value: 3.8, duration: 20 },
+                physicalMeleeDamage: { value: 23.8, duration: 10 },
+            },
+        }
+    },
+    {
+        id: "gem_crab",
+        name: "Gem Crab",
+        rarity: {
+            regular: {
+                food: 21,
+                healthRegen: { value: 3.1, duration: 20 },
+                armor: { value: 14, duration: 10 },
+            },
+            rare: {
+                food: 26,
+                healthRegen: { value: 3.9, duration: 20 },
+                armor: { value: 18, duration: 10 },
+            },
+            // Note: Epic stats for Gem Crab were not available on the page.
         }
     }
 ];
@@ -63,9 +740,12 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity) {
 
     // Combine effects
     function combineEffects(eff1, eff2, target) {
+        // Start by copying all effects from the first ingredient
         for (const key in eff1) {
-            target[key] = eff1[key]; // Copy the value directly, it could be a number or an object
+            target[key] = eff1[key];
         }
+
+        // Now iterate through the second ingredient's effects and apply the rules
         for (const key in eff2) {
             if (key === 'maxHealth') { // Additive
                 target.maxHealth = {
@@ -76,10 +756,15 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity) {
                 target.permMaxHealth = {
                     value: (target.permMaxHealth?.value || 0) + eff2.permMaxHealth.value
                 };
-            } else if (key === 'food') { // Additive, for simple number values
-                target.food = (target.food || 0) + eff2.food;
-            } else if (!target[key] || (eff2[key].value > target[key].value)) { // Take highest
+            } else if (!target[key]) { // If the effect doesn't exist in the first ingredient, just add it
                 target[key] = eff2[key];
+            } else { // For all other effects (including 'food'), take the highest value
+                const val1 = typeof target[key] === 'object' ? target[key].value : target[key];
+                const val2 = typeof eff2[key] === 'object' ? eff2[key].value : eff2[key];
+
+                if (val2 > val1) {
+                    target[key] = eff2[key];
+                }
             }
         }
     }
@@ -98,6 +783,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Populate the dropdowns
     function populateDropdowns() {
+        // Create an "empty" option at the start
+        const emptyOption = document.createElement('option');
+        emptyOption.value = "";
+        emptyOption.textContent = "Select an Ingredient";
+        ingredient1Select.appendChild(emptyOption.cloneNode(true));
+        ingredient2Select.appendChild(emptyOption.cloneNode(true));
+
         ingredients.forEach(ingredient => {
             const option1 = document.createElement('option');
             option1.value = ingredient.id;
@@ -130,16 +822,60 @@ document.addEventListener('DOMContentLoaded', () => {
                 text = `+${effect} Food Amount`;
             } else if (key === 'healthRegen') {
                 text = `+${effect.value} Health every second for ${effect.duration} seconds`;
+            } else if (key === 'healthRegenToAllies') {
+                text = `+${effect.value} Health every second to you and all nearby allies for ${effect.duration} seconds`;
             } else if (key === 'maxHealth') {
                 text = `+${effect.value} Max Health for ${effect.duration} minutes`;
             } else if (key === 'permMaxHealth') {
                 text = `Perm +${effect.value} Max Health`;
-            } else if (key === 'meleeDamage') {
+            } else if (key === 'physicalMeleeDamage') {
                 text = `+${effect.value}% Physical Melee Damage for ${effect.duration} minutes`;
+            } else if (key === 'physicalRangeDamage') {
+                text = `+${effect.value}% Physical Range Damage for ${effect.duration} minutes`;
+            } else if (key === 'meleeAttackSpeed') {
+                text = `+${effect.value}% Melee Attack Speed for ${effect.duration} minutes`;
+            } else if (key === 'rangeAttackSpeed') {
+                text = `+${effect.value}% Range Attack Speed for ${effect.duration} minutes`;
+            } else if (key === 'movementSpeed') {
+                text = `+${effect.value}% Movement Speed for ${effect.duration} minutes`;
+            } else if (key === 'armor') {
+                text = `+${effect.value} Armor for ${effect.duration} minutes`;
+            } else if (key === 'knockbackChance') {
+                text = `+${effect.value}% Chance for Knockback on Melee Hit for ${effect.duration} minutes`;
+            } else if (key === 'reducedBossDamage') {
+                text = `+${effect.value}% Reduced Damage Taken from Bosses for ${effect.duration} minutes`;
+            } else if (key === 'damageAgainstBosses') {
+                text = `+${effect.value}% Damage Against Bosses for ${effect.duration} minutes`;
+            } else if (key === 'lessFoodDrained') {
+                text = `+${effect.value}% Less Food Drained when Running for ${effect.duration} minutes`;
+            } else if (key === 'glow') {
+                text = `+${effect.value} Glow for ${effect.duration} minutes`;
+            } else if (key === 'blueGlow') {
+                text = `+${effect.value} Blue Glow for ${effect.duration} minutes`;
+            } else if (key === 'magicDamage') {
+                text = `+${effect.value}% Magic Damage for ${effect.duration} minutes`;
+            } else if (key === 'magicBarrier') {
+                text = `+${effect.value} Magic Barrier for ${effect.duration} minutes`;
+            } else if (key === 'minionDamage') {
+                text = `+${effect.value}% Minion Damage for ${effect.duration} minutes`;
+            } else if (key === 'minionAttackSpeed') {
+                text = `+${effect.value}% Minion Attack Speed for ${effect.duration} minutes`;
+            } else if (key === 'healingRegeneration') {
+                text = `+${effect.value}% More Healing from Health over Time Regeneration for ${effect.duration} minutes`;
+            } else if (key === 'damage') {
+                text = `+${effect.value}% Damage for ${effect.duration} minutes`;
+            } else if (key === 'criticalHitChance') {
+                text = `+${effect.value}% Critical Hit Chance for ${effect.duration} minutes`;
+            } else if (key === 'lifeOnMeleeHit') {
+                text = `+${effect.value} Life on Melee Hit for ${effect.duration} minutes`;
+            } else if (key === 'miningDamage') {
+                text = `+${effect.value} Mining Damage for ${effect.duration} minutes`;
+            } else if (key === 'miningSpeed') {
+                text = `+${effect.value}% Mining Speed for ${effect.duration} minutes`;
+            } else if (key === 'maxMana') {
+                text = `+${effect.value} Max Mana for ${effect.duration} minutes`;
             } else {
-                // A generic display for other effects
-                // This is a catch-all for effects not explicitly handled above
-                // We must be careful if the effect is a simple number or an object
+                // A generic display for any other effects
                 if (typeof effect === 'object' && effect.duration) {
                     text = `${key}: ${effect.value} (for ${effect.duration} mins)`;
                 } else {
