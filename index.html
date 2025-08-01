@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Keeper Cooking Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Core Keeper Cooking Calculator</h1>
+        
+        <div class="ingredient-selector">
+            <label for="ingredient1">Ingredient 1:</label>
+            <select id="ingredient1"></select>
+            <div class="rarity-selector">
+                <input type="radio" name="rarity1" value="regular" checked> Regular
+                <input type="radio" name="rarity1" value="rare"> Rare
+                <input type="radio" name="rarity1" value="epic"> Epic
+            </div>
+        </div>
+        
+        <div class="ingredient-selector">
+            <label for="ingredient2">Ingredient 2:</label>
+            <select id="ingredient2"></select>
+            <div class="rarity-selector">
+                <input type="radio" name="rarity2" value="regular" checked> Regular
+                <input type="radio" name="rarity2" value="rare"> Rare
+                <input type="radio" name="rarity2" value="epic"> Epic
+            </div>
+        </div>
+        
+        <button id="calculateButton">Calculate</button>
+        
+        <h2>Resulting Food Effects</h2>
+        <div id="results">
+            </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
