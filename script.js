@@ -874,6 +874,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 text = `+${effect.value}% Mining Speed for ${effect.duration} minutes`;
             } else if (key === 'maxMana') {
                 text = `+${effect.value} Max Mana for ${effect.duration} minutes`;
+            } else if (key === 'manaRegen') {
+                text = `+${effect.value} mana every sec for ${effect.duration} minutes`;
             } else {
                 // A generic display for any other effects
                 if (typeof effect === 'object' && effect.duration) {
