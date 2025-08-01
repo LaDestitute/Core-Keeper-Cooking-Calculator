@@ -1,3 +1,4 @@
+// --- Step 1: Ingredient Data ---
 const ingredients = [
     {
         id: "bomb_pepper",
@@ -63,7 +64,7 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity) {
     // Combine effects
     function combineEffects(eff1, eff2, target) {
         for (const key in eff1) {
-            target[key] = { ...eff1[key] };
+            target[key] = eff1[key]; // Copy the value directly, it could be a number or an object
         }
         for (const key in eff2) {
             if (key === 'maxHealth') { // Additive
@@ -75,8 +76,10 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity) {
                 target.permMaxHealth = {
                     value: (target.permMaxHealth?.value || 0) + eff2.permMaxHealth.value
                 };
+            } else if (key === 'food') { // Additive, for simple number values
+                target.food = (target.food || 0) + eff2.food;
             } else if (!target[key] || (eff2[key].value > target[key].value)) { // Take highest
-                target[key] = { ...eff2[key] };
+                target[key] = eff2[key];
             }
         }
     }
@@ -122,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const p = document.createElement('p');
             let text = '';
             
-            // Format the output nicely
+            // This is the updated part, now correctly checking for type
             if (key === 'food') {
                 text = `+${effect} Food Amount`;
             } else if (key === 'healthRegen') {
@@ -135,7 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 text = `+${effect.value}% Physical Melee Damage for ${effect.duration} minutes`;
             } else {
                 // A generic display for other effects
-                text = `${key}: ${effect.value} (for ${effect.duration} mins)`;
+                // This is a catch-all for effects not explicitly handled above
+                // We must be careful if the effect is a simple number or an object
+                if (typeof effect === 'object' && effect.duration) {
+                    text = `${key}: ${effect.value} (for ${effect.duration} mins)`;
+                } else {
+                    text = `${key}: ${effect}`;
+                }
             }
             p.textContent = text;
             resultsDiv.appendChild(p);
