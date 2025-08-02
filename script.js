@@ -1590,7 +1590,7 @@ let sortedIngredients = [...originalIngredients];
 
 
 // --- Step 2: Calculation Logic ---
-function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel, fastFoodPerkLevel) {
+function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel, fastFoodPerkLevel, longLastingFoodPerkLevel) {
     const ingredient1 = sortedIngredients.find(ing => ing.id === ing1Id);
     const ingredient2 = sortedIngredients.find(ing => ing.id === ing2Id);
     
@@ -1650,6 +1650,17 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
         
         result.meleeAttackSpeed.value = result.meleeAttackSpeed.value + bonusMeleeAttackSpeed;
         result.meleeAttackSpeed.duration = Math.max(result.meleeAttackSpeed.duration, bonusDuration);
+    }
+
+    // Apply the "Long-lasting food" skill to all effects with a duration
+    if (longLastingFoodPerkLevel > 0) {
+        const durationMultiplier = 1 + (longLastingFoodPerkLevel * 0.06); // 6% per level
+        for (const key in result) {
+            // Check if the effect is an object and has a duration property
+            if (typeof result[key] === 'object' && result[key].duration !== undefined) {
+                result[key].duration = Math.floor(result[key].duration * durationMultiplier);
+            }
+        }
     }
 
     // Apply meleeAndRangeAttackSpeed to both melee and range attack speed
@@ -1729,8 +1740,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const ing2Rarity = document.querySelector('input[name="rarity2"]:checked').value;
         const foodPerkLevel = parseInt(document.getElementById('foodPerkLevel').value, 10);
         const fastFoodPerkLevel = parseInt(document.getElementById('fastFoodPerkLevel').value, 10);
+        const longLastingFoodPerkLevel = parseInt(document.getElementById('longLastingFoodPerkLevel').value, 10);
         
-        const effects = calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel, fastFoodPerkLevel);
+        const effects = calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel, fastFoodPerkLevel, longLastingFoodPerkLevel);
         displayResults(effects);
     });
 
