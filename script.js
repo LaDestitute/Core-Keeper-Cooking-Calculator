@@ -1819,9 +1819,11 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
 
     // Apply the "Power of Omega-3!" perk
     const isFishCombo = (ingredient1.isFish || ingredient2.isFish);
-    if (isFishCombo && result.damageAgainstBosses && omega3PerkLevel > 0) {
-        const damageMultiplier = 1 + (omega3PerkLevel * 0.03);
-        result.damageAgainstBosses.value = result.damageAgainstBosses.value + (result.damageAgainstBosses.value * (omega3PerkLevel * 0.03));
+    if (isFishCombo && result.damageAgainstBosses) {
+        if (omega3PerkLevel > 0) {
+            const bonusDamage = result.damageAgainstBosses.value * (omega3PerkLevel * 0.03);
+            result.damageAgainstBosses.value = result.damageAgainstBosses.value + bonusDamage;
+        }
     }
 
 
