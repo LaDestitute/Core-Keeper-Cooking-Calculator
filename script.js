@@ -1739,8 +1739,8 @@ let sortedIngredients = [...originalIngredients];
 
 // --- Step 2: Calculation Logic ---
 function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel, fastFoodPerkLevel, longLastingFoodPerkLevel, eatVegetablesPerkLevel, omega3PerkLevel) {
-    const ingredient1 = sortedIngredients.find(ing => ing.id === ing1Id);
-    const ingredient2 = sortedIngredients.find(ing => ing.id === ing2Id);
+    const ingredient1 = originalIngredients.find(ing => ing.id === ing1Id);
+    const ingredient2 = originalIngredients.find(ing => ing.id === ing2Id);
     
     if (!ingredient1 || !ingredient2) {
         return "Please select two ingredients.";
@@ -1820,13 +1820,26 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
     // Apply the "Power of Omega-3!" perk
     const isFishCombo = (ingredient1.isFish || ingredient2.isFish);
     if (isFishCombo && omega3PerkLevel > 0) {
-        // If damageAgainstBosses doesn't exist, create it with a base of 0
-        if (!result.damageAgainstBosses) {
-            // Note: A duration of 10 minutes is a reasonable default for this type of food effect.
-            result.damageAgainstBosses = { value: 0, duration: 10 };
+        // Find the base damageAgainstBosses value from the combined effects before applying any perks
+        let baseDamageAgainstBosses = 0;
+        if (effects1.damageAgainstBosses?.value > baseDamageAgainstBosses) {
+            baseDamageAgainstBosses = effects1.damageAgainstBosses.value;
         }
-        const bonusDamage = omega3PerkLevel * 3; // 3% per level
-        result.damageAgainstBosses.value = result.damageAgainstBosses.value + bonusDamage;
+        if (effects2.damageAgainstBosses?.value > baseDamageAgainstBosses) {
+            baseDamageAgainstBosses = effects2.damageAgainstBosses.value;
+        }
+
+        // If a base value exists, calculate the bonus and add it
+        if (baseDamageAgainstBosses > 0) {
+            if (!result.damageAgainstBosses) {
+                result.damageAgainstBosses = { ...effects1.damageAgainstBosses, ...effects2.damageAgainstBosses};
+                if (!result.damageAgainstBosses.duration) result.damageAgainstBosses.duration = 10;
+                if (!result.damageAgainstBosses.value) result.damageAgainstBosses.value = 0;
+            }
+
+            const bonusDamage = baseDamageAgainstBosses * (omega3PerkLevel * 0.03);
+            result.damageAgainstBosses.value = result.damageAgainstBosses.value + bonusDamage;
+        }
     }
 
 
