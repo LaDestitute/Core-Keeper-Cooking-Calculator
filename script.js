@@ -1590,7 +1590,7 @@ let sortedIngredients = [...originalIngredients];
 
 
 // --- Step 2: Calculation Logic ---
-function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel) {
+function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel, fastFoodPerkLevel) {
     const ingredient1 = sortedIngredients.find(ing => ing.id === ing1Id);
     const ingredient2 = sortedIngredients.find(ing => ing.id === ing2Id);
     
@@ -1639,6 +1639,42 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
         result.food = Math.floor(result.food * foodMultiplier);
     }
     
+    // Apply the "Fast food" skill
+    if (fastFoodPerkLevel > 0) {
+        const bonusMeleeAttackSpeed = fastFoodPerkLevel * 1; // 1% per level
+        const bonusDuration = 0.5; // 30 seconds = 0.5 minutes
+
+        if (!result.meleeAttackSpeed) {
+            result.meleeAttackSpeed = { value: 0, duration: 0 };
+        }
+        
+        result.meleeAttackSpeed.value = result.meleeAttackSpeed.value + bonusMeleeAttackSpeed;
+        result.meleeAttackSpeed.duration = Math.max(result.meleeAttackSpeed.duration, bonusDuration);
+    }
+
+    // Apply meleeAndRangeAttackSpeed to both melee and range attack speed
+    if (result.meleeAndRangeAttackSpeed) {
+        const sharedValue = result.meleeAndRangeAttackSpeed.value;
+        const sharedDuration = result.meleeAndRangeAttackSpeed.duration;
+
+        // Apply to meleeAttackSpeed
+        if (!result.meleeAttackSpeed) {
+            result.meleeAttackSpeed = { value: 0, duration: 0 };
+        }
+        result.meleeAttackSpeed.value = Math.max(result.meleeAttackSpeed.value, sharedValue);
+        result.meleeAttackSpeed.duration = Math.max(result.meleeAttackSpeed.duration, sharedDuration);
+
+        // Apply to rangeAttackSpeed
+        if (!result.rangeAttackSpeed) {
+            result.rangeAttackSpeed = { value: 0, duration: 0 };
+        }
+        result.rangeAttackSpeed.value = Math.max(result.rangeAttackSpeed.value, sharedValue);
+        result.rangeAttackSpeed.duration = Math.max(result.rangeAttackSpeed.duration, sharedDuration);
+
+        // Remove the separate meleeAndRangeAttackSpeed entry from the final result
+        delete result.meleeAndRangeAttackSpeed;
+    }
+    
     return result;
 }
 
@@ -1649,7 +1685,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const calculateButton = document.getElementById('calculateButton');
     const resultsDiv = document.getElementById('results');
     const sortBySelect = document.getElementById('sort-by');
-
+    
     function populateDropdowns() {
         ingredient1Select.innerHTML = '';
         ingredient2Select.innerHTML = '';
@@ -1692,8 +1728,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const ing1Rarity = document.querySelector('input[name="rarity1"]:checked').value;
         const ing2Rarity = document.querySelector('input[name="rarity2"]:checked').value;
         const foodPerkLevel = parseInt(document.getElementById('foodPerkLevel').value, 10);
+        const fastFoodPerkLevel = parseInt(document.getElementById('fastFoodPerkLevel').value, 10);
         
-        const effects = calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel);
+        const effects = calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel, fastFoodPerkLevel);
         displayResults(effects);
     });
 
