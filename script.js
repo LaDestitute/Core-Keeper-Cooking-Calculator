@@ -1590,7 +1590,7 @@ let sortedIngredients = [...originalIngredients];
 
 
 // --- Step 2: Calculation Logic ---
-function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity) {
+function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel) {
     const ingredient1 = sortedIngredients.find(ing => ing.id === ing1Id);
     const ingredient2 = sortedIngredients.find(ing => ing.id === ing2Id);
     
@@ -1632,6 +1632,12 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity) {
     }
 
     combineEffects(effects1, effects2, result);
+
+    // Apply the "Utilizing every nutrient" perk
+    if (result.food && foodPerkLevel > 0) {
+        const foodMultiplier = 1 + (foodPerkLevel * 0.05);
+        result.food = Math.floor(result.food * foodMultiplier);
+    }
     
     return result;
 }
@@ -1685,8 +1691,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const ing2Id = ingredient2Select.value;
         const ing1Rarity = document.querySelector('input[name="rarity1"]:checked').value;
         const ing2Rarity = document.querySelector('input[name="rarity2"]:checked').value;
+        const foodPerkLevel = parseInt(document.getElementById('foodPerkLevel').value, 10);
         
-        const effects = calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity);
+        const effects = calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel);
         displayResults(effects);
     });
 
@@ -1792,7 +1799,6 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsDiv.appendChild(p);
         }
     }
-
 
     populateDropdowns();
 });
