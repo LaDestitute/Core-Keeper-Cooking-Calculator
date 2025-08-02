@@ -1819,11 +1819,14 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
 
     // Apply the "Power of Omega-3!" perk
     const isFishCombo = (ingredient1.isFish || ingredient2.isFish);
-    if (isFishCombo && result.damageAgainstBosses) {
-        if (omega3PerkLevel > 0) {
-            const bonusDamage = result.damageAgainstBosses.value * (omega3PerkLevel * 0.03);
-            result.damageAgainstBosses.value = result.damageAgainstBosses.value + bonusDamage;
+    if (isFishCombo && omega3PerkLevel > 0) {
+        // If damageAgainstBosses doesn't exist, create it with a base of 0
+        if (!result.damageAgainstBosses) {
+            // Note: A duration of 10 minutes is a reasonable default for this type of food effect.
+            result.damageAgainstBosses = { value: 0, duration: 10 };
         }
+        const bonusDamage = omega3PerkLevel * 3; // 3% per level
+        result.damageAgainstBosses.value = result.damageAgainstBosses.value + bonusDamage;
     }
 
 
