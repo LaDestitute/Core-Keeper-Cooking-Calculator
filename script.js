@@ -725,6 +725,7 @@ const ingredients = [
                 armor: { value: 21, duration: 10 },
             },
         }
+    }
 ];
 
 // --- Step 2: Calculation Logic ---
