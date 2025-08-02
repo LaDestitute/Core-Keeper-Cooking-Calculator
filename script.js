@@ -719,9 +719,12 @@ const ingredients = [
                 healthRegen: { value: 3.9, duration: 20 },
                 armor: { value: 18, duration: 10 },
             },
-            // Note: Epic stats for Gem Crab were not available on the page.
+            epic: {
+                food: 32,
+                healthRegen: { value: 4.6, duration: 20 },
+                armor: { value: 21, duration: 10 },
+            },
         }
-    }
 ];
 
 // --- Step 2: Calculation Logic ---
