@@ -1896,7 +1896,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ing1Id = ingredient1Select.value;
         const ing2Id = ingredient2Select.value;
         const ing1Rarity = document.querySelector('input[name="rarity1"]:checked').value;
-        const ing2Rarity = document.querySelector('input[name="rarity2']:checked').value;
+        const ing2Rarity = document.querySelector('input[name="rarity2"]:checked').value;
         const foodPerkLevel = parseInt(document.getElementById('foodPerkLevel').value, 10);
         const fastFoodPerkLevel = parseInt(document.getElementById('fastFoodPerkLevel').value, 10);
         const longLastingFoodPerkLevel = parseInt(document.getElementById('longLastingFoodPerkLevel').value, 10);
