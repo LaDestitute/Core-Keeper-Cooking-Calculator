@@ -1989,6 +1989,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ingredient1Select = document.getElementById('ingredient1');
     const ingredient2Select = document.getElementById('ingredient2');
     const calculateButton = document.getElementById('calculateButton');
+    const randomButton = document.getElementById('randomButton'); // New button
     const resultsDiv = document.getElementById('results');
     const sortBySelect = document.getElementById('sort-by');
     const masterChefEnabledCheckbox = document.getElementById('masterChefEnabled');
@@ -2041,6 +2042,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    function getRandomRarity() {
+        const rarities = ['regular', 'rare', 'epic'];
+        return rarities[Math.floor(Math.random() * rarities.length)];
+    }
+
+    function randomizeAndCalculate() {
+        const randomIndex1 = Math.floor(Math.random() * originalIngredients.length);
+        let randomIndex2 = Math.floor(Math.random() * originalIngredients.length);
+        
+        // Ensure ingredient 2 is different from ingredient 1 unless there's only one ingredient.
+        if (originalIngredients.length > 1) {
+            while (randomIndex2 === randomIndex1) {
+                randomIndex2 = Math.floor(Math.random() * originalIngredients.length);
+            }
+        }
+        
+        const randomIng1 = originalIngredients[randomIndex1];
+        const randomIng2 = originalIngredients[randomIndex2];
+        const randomRarity1 = getRandomRarity();
+        const randomRarity2 = getRandomRarity();
+        
+        // Set the UI to reflect the random choices
+        ingredient1Select.value = randomIng1.id;
+        ingredient2Select.value = randomIng2.id;
+        document.querySelector(`input[name="rarity1"][value="${randomRarity1}"]`).checked = true;
+        document.querySelector(`input[name="rarity2"][value="${randomRarity2}"]`).checked = true;
+        
+        // Get perk levels from UI
+        const foodPerkLevel = parseInt(document.getElementById('foodPerkLevel').value, 10);
+        const fastFoodPerkLevel = parseInt(document.getElementById('fastFoodPerkLevel').value, 10);
+        const longLastingFoodPerkLevel = parseInt(document.getElementById('longLastingFoodPerkLevel').value, 10);
+        const eatVegetablesPerkLevel = parseInt(document.getElementById('eatVegetablesPerkLevel').value, 10);
+        const omega3PerkLevel = parseInt(document.getElementById('omega3PerkLevel').value, 10);
+
+        // Master Chef perk
+        const masterChefEnabled = masterChefEnabledCheckbox.checked;
+        const resultQuality = document.querySelector('input[name="resultQuality"]:checked')?.value || null;
+
+        const effects = calculateFoodEffects(randomIng1.id, randomRarity1, randomIng2.id, randomRarity2, foodPerkLevel, fastFoodPerkLevel, longLastingFoodPerkLevel, eatVegetablesPerkLevel, omega3PerkLevel, masterChefEnabled, resultQuality);
+        displayResults(effects);
+    }
+
     calculateButton.addEventListener('click', () => {
         const ing1Id = ingredient1Select.value;
         const ing2Id = ingredient2Select.value;
@@ -2057,6 +2100,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const effects = calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel, fastFoodPerkLevel, longLastingFoodPerkLevel, eatVegetablesPerkLevel, omega3PerkLevel, masterChefEnabled, resultQuality);
         displayResults(effects);
     });
+
+    randomButton.addEventListener('click', randomizeAndCalculate);
 
     function displayResults(effects) {
         resultsDiv.innerHTML = '';
@@ -2159,8 +2204,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 text = 'Immune to mold infection';
             } else if (key === 'immuneToBurning') {
                 text = 'Immune to burning';
-            } else if (key === 'manaRegen') {
-                text = `+${roundValue(effect.value)} Mana a second for ${roundValue(effect.duration)} minutes`;
             } else {
                 if (typeof effect === 'object' && effect.duration) {
                     text = `${key}: ${effect.value.toFixed(2)} (for ${roundValue(effect.duration)} mins)`;
