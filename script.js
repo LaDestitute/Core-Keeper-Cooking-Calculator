@@ -1,12 +1,13 @@
 // --- Step 1: Ingredient Data ---
 // This is the complete, unsorted list of ingredients with all their rarity stats.
-// I have also added an 'isPlant' or 'isFish' property to each ingredient for the new perks.
+// I have also added an 'isPlant', 'isFish', or 'isGolden' property to each ingredient for the new perks.
 const originalIngredients = [
     {
         id: "mushroom",
         name: "Mushroom",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 19,
@@ -27,6 +28,7 @@ const originalIngredients = [
         name: "Giant Mushroom",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 31,
@@ -50,6 +52,7 @@ const originalIngredients = [
         name: "Heart Berry",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 19,
@@ -73,6 +76,7 @@ const originalIngredients = [
         name: "Golden Heart Berry",
         isPlant: true,
         isFish: false,
+        isGolden: true,
         rarity: {
             regular: {
                 food: 18,
@@ -99,6 +103,7 @@ const originalIngredients = [
         name: "Glow Tulip",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 2,
@@ -122,6 +127,7 @@ const originalIngredients = [
         name: "Golden Glow Tulip",
         isPlant: true,
         isFish: false,
+        isGolden: true,
         rarity: {
             regular: {
                 food: 2,
@@ -148,6 +154,7 @@ const originalIngredients = [
         name: "Bomb Pepper",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 10,
@@ -168,6 +175,7 @@ const originalIngredients = [
         name: "Golden Bomb Pepper",
         isPlant: true,
         isFish: false,
+        isGolden: true,
         rarity: {
             regular: {
                 food: 11,
@@ -191,6 +199,7 @@ const originalIngredients = [
         name: "Carrock",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 15,
@@ -211,6 +220,7 @@ const originalIngredients = [
         name: "Golden Carrock",
         isPlant: true,
         isFish: false,
+        isGolden: true,
         rarity: {
             regular: {
                 food: 13,
@@ -234,6 +244,7 @@ const originalIngredients = [
         name: "Puffungi",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 10,
@@ -257,6 +268,7 @@ const originalIngredients = [
         name: "Golden Puffungi",
         isPlant: true,
         isFish: false,
+        isGolden: true,
         rarity: {
             regular: {
                 food: 10,
@@ -283,6 +295,7 @@ const originalIngredients = [
         name: "Bloat Oat",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 43,
@@ -303,6 +316,7 @@ const originalIngredients = [
         name: "Golden Bloat Oat",
         isPlant: true,
         isFish: false,
+        isGolden: true,
         rarity: {
             regular: {
                 food: 42,
@@ -326,6 +340,7 @@ const originalIngredients = [
         name: "Pewpaya",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 20,
@@ -349,6 +364,7 @@ const originalIngredients = [
         name: "Golden Pewpaya",
         isPlant: true,
         isFish: false,
+        isGolden: true,
         rarity: {
             regular: {
                 food: 21,
@@ -375,6 +391,7 @@ const originalIngredients = [
         name: "Pinegrapple",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 20,
@@ -398,6 +415,7 @@ const originalIngredients = [
         name: "Golden Pinegrapple",
         isPlant: true,
         isFish: false,
+        isGolden: true,
         rarity: {
             regular: {
                 food: 21,
@@ -424,6 +442,7 @@ const originalIngredients = [
         name: "Sunrice",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 13,
@@ -447,6 +466,7 @@ const originalIngredients = [
         name: "Golden Sunrice",
         isPlant: true,
         isFish: false,
+        isGolden: true,
         rarity: {
             regular: {
                 food: 13,
@@ -473,6 +493,7 @@ const originalIngredients = [
         name: "Lunacorn",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 13,
@@ -496,6 +517,7 @@ const originalIngredients = [
         name: "Golden Lunacorn",
         isPlant: true,
         isFish: false,
+        isGolden: true,
         rarity: {
             regular: {
                 food: 14,
@@ -522,6 +544,7 @@ const originalIngredients = [
         name: "Dodo Egg",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 30,
@@ -545,6 +568,7 @@ const originalIngredients = [
         name: "Marbled Meat",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 27,
@@ -568,6 +592,7 @@ const originalIngredients = [
         name: "Larva Meat",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 22,
@@ -591,6 +616,7 @@ const originalIngredients = [
         name: "Shiny Larva Meat",
         isPlant: false,
         isFish: false,
+        isGolden: false, // Not a golden food
         rarity: {
             regular: {
                 food: 25,
@@ -614,6 +640,7 @@ const originalIngredients = [
         name: "Amber Larva",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -637,6 +664,7 @@ const originalIngredients = [
         name: "Atlantean Worm Heart",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 27,
@@ -660,6 +688,7 @@ const originalIngredients = [
         name: "Grumpkin",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -683,6 +712,7 @@ const originalIngredients = [
         name: "Golden Grumpkin",
         isPlant: true,
         isFish: false,
+        isGolden: true,
         rarity: {
             regular: {
                 food: 18,
@@ -709,6 +739,7 @@ const originalIngredients = [
         name: "Orange Cave Guppy",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 19,
@@ -732,6 +763,7 @@ const originalIngredients = [
         name: "Blue Cave Guppy",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -755,6 +787,7 @@ const originalIngredients = [
         name: "Rock Jaw",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 22,
@@ -778,6 +811,7 @@ const originalIngredients = [
         name: "Gem Crab",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -801,6 +835,7 @@ const originalIngredients = [
         name: "Dagger Fin",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -824,6 +859,7 @@ const originalIngredients = [
         name: "Pink Palace Fish",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 22,
@@ -847,6 +883,7 @@ const originalIngredients = [
         name: "Teal Palace Fish",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -870,6 +907,7 @@ const originalIngredients = [
         name: "Crown Squid",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 19,
@@ -893,6 +931,7 @@ const originalIngredients = [
         name: "Yellow Blister Head",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -916,6 +955,7 @@ const originalIngredients = [
         name: "Green Blister Head",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 20,
@@ -939,6 +979,7 @@ const originalIngredients = [
         name: "Devil Worm",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 20,
@@ -962,6 +1003,7 @@ const originalIngredients = [
         name: "Vampire Eel",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -985,6 +1027,7 @@ const originalIngredients = [
         name: "Mold Shark",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -1008,6 +1051,7 @@ const originalIngredients = [
         name: "Rot Fish",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -1028,6 +1072,7 @@ const originalIngredients = [
         name: "Black Steel Urchin",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 19,
@@ -1054,6 +1099,7 @@ const originalIngredients = [
         name: "Azure Feather Fish",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -1074,6 +1120,7 @@ const originalIngredients = [
         name: "Emerald Feather Fish",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 20,
@@ -1100,6 +1147,7 @@ const originalIngredients = [
         name: "Spirit Veil",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 19,
@@ -1120,6 +1168,7 @@ const originalIngredients = [
         name: "Astral Jelly",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -1143,6 +1192,7 @@ const originalIngredients = [
         name: "Bottom Tracer",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 20,
@@ -1166,6 +1216,7 @@ const originalIngredients = [
         name: "Silver Dart",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -1189,6 +1240,7 @@ const originalIngredients = [
         name: "Golden Dart",
         isPlant: false,
         isFish: true,
+        isGolden: true,
         rarity: {
             regular: {
                 food: 22,
@@ -1212,6 +1264,7 @@ const originalIngredients = [
         name: "Pink Coralotl",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 22,
@@ -1238,6 +1291,7 @@ const originalIngredients = [
         name: "White Coralotl",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 19,
@@ -1261,6 +1315,7 @@ const originalIngredients = [
         name: "Solid Spikeback",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -1284,6 +1339,7 @@ const originalIngredients = [
         name: "Sandy Spikeback",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 19,
@@ -1307,6 +1363,7 @@ const originalIngredients = [
         name: "Grey Dune Tail",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 20,
@@ -1330,6 +1387,7 @@ const originalIngredients = [
         name: "Brown Dune Tail",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -1353,6 +1411,7 @@ const originalIngredients = [
         name: "Tornis Kingfish",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 20,
@@ -1376,6 +1435,7 @@ const originalIngredients = [
         name: "Dark Lava Eater",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 19,
@@ -1399,6 +1459,7 @@ const originalIngredients = [
         name: "Bright Lava Eater",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 20,
@@ -1422,6 +1483,7 @@ const originalIngredients = [
         name: "Verdant Dragonfish",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -1445,6 +1507,7 @@ const originalIngredients = [
         name: "Elder Dragonfish",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 19,
@@ -1468,6 +1531,7 @@ const originalIngredients = [
         name: "Starlight Nautilus",
         isPlant: false,
         isFish: true,
+        isGolden: false, // The prompt does not state this is a golden food
         rarity: {
             regular: {
                 food: 21,
@@ -1497,6 +1561,7 @@ const originalIngredients = [
         name: "Beryll Angle Fish",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 20,
@@ -1517,6 +1582,7 @@ const originalIngredients = [
         name: "Glistening Deepstalker",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 20,
@@ -1540,6 +1606,7 @@ const originalIngredients = [
         name: "Cosmic Form",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 18,
@@ -1560,6 +1627,7 @@ const originalIngredients = [
         name: "Jasper Angle Fish",
         isPlant: false,
         isFish: true,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 19,
@@ -1583,6 +1651,7 @@ const originalIngredients = [
         name: "Splendid Deepstalker",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 20,
@@ -1609,6 +1678,7 @@ const originalIngredients = [
         name: "Terra Trilobite",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 19,
@@ -1632,6 +1702,7 @@ const originalIngredients = [
         name: "Litho Trilobite",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 22,
@@ -1658,6 +1729,7 @@ const originalIngredients = [
         name: "Greenhorn Pico",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 21,
@@ -1684,6 +1756,7 @@ const originalIngredients = [
         name: "Pinkhorn Pico",
         isPlant: true,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 20,
@@ -1707,6 +1780,7 @@ const originalIngredients = [
         name: "Riftian Lampfish",
         isPlant: false,
         isFish: false,
+        isGolden: false,
         rarity: {
             regular: {
                 food: 19,
@@ -1738,7 +1812,8 @@ let sortedIngredients = [...originalIngredients];
 
 
 // --- Step 2: Calculation Logic ---
-function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel, fastFoodPerkLevel, longLastingFoodPerkLevel, eatVegetablesPerkLevel, omega3PerkLevel) {
+function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel, fastFoodPerkLevel, longLastingFoodPerkLevel, eatVegetablesPerkLevel, omega3PerkLevel, masterChefEnabled, resultQuality) {
+    // Get the original ingredient data to prevent cumulative stacking of perks
     const ingredient1 = originalIngredients.find(ing => ing.id === ing1Id);
     const ingredient2 = originalIngredients.find(ing => ing.id === ing2Id);
     
@@ -1749,13 +1824,16 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
     const effects1 = ingredient1.rarity[ing1Rarity];
     const effects2 = ingredient2.rarity[ing2Rarity];
     
-    const result = {};
-
+    // Create a deep copy to avoid modifying the original data
+    let result = {};
     function combineEffects(eff1, eff2, target) {
         for (const key in eff1) {
-            target[key] = eff1[key];
+            if (typeof eff1[key] === 'object') {
+                target[key] = { ...eff1[key] };
+            } else {
+                target[key] = eff1[key];
+            }
         }
-
         for (const key in eff2) {
             if (key === 'maxHealth') {
                 target.maxHealth = {
@@ -1767,19 +1845,55 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
                     value: (target.permMaxHealth?.value || 0) + eff2.permMaxHealth.value
                 };
             } else if (!target[key]) {
-                target[key] = eff2[key];
+                if (typeof eff2[key] === 'object') {
+                    target[key] = { ...eff2[key] };
+                } else {
+                    target[key] = eff2[key];
+                }
             } else {
                 const val1 = typeof target[key] === 'object' ? target[key].value : target[key];
                 const val2 = typeof eff2[key] === 'object' ? eff2[key].value : eff2[key];
-
                 if (val2 > val1) {
-                    target[key] = eff2[key];
+                    if (typeof eff2[key] === 'object') {
+                        target[key] = { ...eff2[key] };
+                    } else {
+                        target[key] = eff2[key];
+                    }
                 }
             }
         }
     }
 
     combineEffects(effects1, effects2, result);
+
+    // Apply the "Master Chef" skill
+    if (masterChefEnabled && resultQuality) {
+        let qualityMultiplier = 1;
+        if (resultQuality === 'rare') {
+            qualityMultiplier = 1.25;
+        } else if (resultQuality === 'epic') {
+            qualityMultiplier = 1.50;
+        }
+        
+        // Check for two golden ingredients (excluding Shiny Larva Meat)
+        if (ingredient1.isGolden && ingredient2.isGolden) {
+            qualityMultiplier += 0.15;
+        }
+
+        for (const key in result) {
+            // Apply multiplier to all effects except permMaxHealth
+            if (key !== 'permMaxHealth' && typeof result[key] === 'object') {
+                if (result[key].value !== undefined) {
+                    result[key].value = result[key].value * qualityMultiplier;
+                }
+                if (result[key].duration !== undefined) {
+                    result[key].duration = result[key].duration * qualityMultiplier;
+                }
+            } else if (key === 'food') {
+                result[key] = Math.floor(result[key] * qualityMultiplier);
+            }
+        }
+    }
 
     // Apply the "Utilizing every nutrient" perk
     if (result.food && foodPerkLevel > 0) {
@@ -1829,17 +1943,13 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
             baseDamageAgainstBosses = effects2.damageAgainstBosses.value;
         }
 
-        // If a base value exists, calculate the bonus and add it
-        if (baseDamageAgainstBosses > 0) {
-            if (!result.damageAgainstBosses) {
-                result.damageAgainstBosses = { ...effects1.damageAgainstBosses, ...effects2.damageAgainstBosses};
-                if (!result.damageAgainstBosses.duration) result.damageAgainstBosses.duration = 10;
-                if (!result.damageAgainstBosses.value) result.damageAgainstBosses.value = 0;
-            }
-
-            const bonusDamage = baseDamageAgainstBosses * (omega3PerkLevel * 0.03);
-            result.damageAgainstBosses.value = result.damageAgainstBosses.value + bonusDamage;
+        // Create the effect if it doesn't exist and set its base value
+        if (!result.damageAgainstBosses) {
+            result.damageAgainstBosses = { value: baseDamageAgainstBosses, duration: Math.max(effects1.damageAgainstBosses?.duration || 0, effects2.damageAgainstBosses?.duration || 0, 10)};
         }
+        
+        const bonusDamage = baseDamageAgainstBosses * (omega3PerkLevel * 0.03);
+        result.damageAgainstBosses.value = result.damageAgainstBosses.value + bonusDamage;
     }
 
 
@@ -1873,6 +1983,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const calculateButton = document.getElementById('calculateButton');
     const resultsDiv = document.getElementById('results');
     const sortBySelect = document.getElementById('sort-by');
+    const masterChefEnabledCheckbox = document.getElementById('masterChefEnabled');
+    const qualityRareRadio = document.getElementById('qualityRare');
+    const qualityEpicRadio = document.getElementById('qualityEpic');
     
     function populateDropdowns() {
         ingredient1Select.innerHTML = '';
@@ -1910,6 +2023,16 @@ document.addEventListener('DOMContentLoaded', () => {
         sortIngredients(event.target.value);
     });
 
+    masterChefEnabledCheckbox.addEventListener('change', () => {
+        const isChecked = masterChefEnabledCheckbox.checked;
+        qualityRareRadio.disabled = !isChecked;
+        qualityEpicRadio.disabled = !isChecked;
+        if (!isChecked) {
+            qualityRareRadio.checked = false;
+            qualityEpicRadio.checked = false;
+        }
+    });
+
     calculateButton.addEventListener('click', () => {
         const ing1Id = ingredient1Select.value;
         const ing2Id = ingredient2Select.value;
@@ -1920,8 +2043,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const longLastingFoodPerkLevel = parseInt(document.getElementById('longLastingFoodPerkLevel').value, 10);
         const eatVegetablesPerkLevel = parseInt(document.getElementById('eatVegetablesPerkLevel').value, 10);
         const omega3PerkLevel = parseInt(document.getElementById('omega3PerkLevel').value, 10);
+        const masterChefEnabled = masterChefEnabledCheckbox.checked;
+        const resultQuality = document.querySelector('input[name="resultQuality"]:checked')?.value || null;
         
-        const effects = calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel, fastFoodPerkLevel, longLastingFoodPerkLevel, eatVegetablesPerkLevel, omega3PerkLevel);
+        const effects = calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel, fastFoodPerkLevel, longLastingFoodPerkLevel, eatVegetablesPerkLevel, omega3PerkLevel, masterChefEnabled, resultQuality);
         displayResults(effects);
     });
 
@@ -1941,7 +2066,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (key === 'food') {
                 text = `+${effect} Food Amount`;
             } else if (key === 'healthRegen') {
-                text = `+${effect.value} Health every second for ${effect.duration} seconds`;
+                text = `+${effect.value.toFixed(1)} Health every second for ${effect.duration} seconds`;
             } else if (key === 'healthRegenToAllies') {
                 text = `+${effect.value} Health every second to you and all nearby allies for ${effect.duration} seconds`;
             } else if (key === 'maxHealth') {
@@ -2018,7 +2143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 text = 'Immune to burning';
             } else {
                 if (typeof effect === 'object' && effect.duration) {
-                    text = `${key}: ${effect.value} (for ${effect.duration} mins)`;
+                    text = `${key}: ${effect.value.toFixed(2)} (for ${effect.duration} mins)`;
                 } else {
                     text = `${key}: ${effect}`;
                 }
