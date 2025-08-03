@@ -1876,35 +1876,6 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
 
     combineEffects(effects1, effects2, result);
 
-    // Apply the "Master Chef" skill
-    if (masterChefEnabled && resultQuality) {
-        let qualityMultiplier = 1;
-        if (resultQuality === 'rare') {
-            qualityMultiplier = 1.25;
-        } else if (resultQuality === 'epic') {
-            qualityMultiplier = 1.50;
-        }
-        
-        // Check for two golden ingredients (excluding Shiny Larva Meat)
-        if (ingredient1.isGolden && ingredient2.isGolden) {
-            qualityMultiplier += 0.15;
-        }
-
-        for (const key in result) {
-            // Apply multiplier to all effects except permMaxHealth
-            if (key !== 'permMaxHealth' && typeof result[key] === 'object') {
-                if (result[key].value !== undefined) {
-                    result[key].value = result[key].value * qualityMultiplier;
-                }
-                if (result[key].duration !== undefined) {
-                    result[key].duration = result[key].duration * qualityMultiplier;
-                }
-            } else if (key === 'food') {
-                result[key] = Math.floor(result[key] * qualityMultiplier);
-            }
-        }
-    }
-
     // Apply the "Utilizing every nutrient" perk
     if (result.food && foodPerkLevel > 0) {
         const foodMultiplier = 1 + (foodPerkLevel * 0.05);
@@ -1981,6 +1952,23 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
         result.rangeAttackSpeed.duration = Math.max(result.rangeAttackSpeed.duration, sharedDuration);
 
         delete result.meleeAndRangeAttackSpeed;
+    }
+
+    // A final check to round up any values that should be integers
+    for (const key in result) {
+        const effect = result[key];
+        if (key === 'food' || key === 'maxHealth' || key === 'permMaxHealth' || key === 'armor' || key === 'knockbackChance' || key === 'reducedBossDamage' || key === 'lessFoodDrained' || key === 'glow' || key === 'blueGlow' || key === 'magicBarrier' || key === 'minionCriticalHitChance' || key === 'healingRegeneration' || key === 'lifeOnMeleeHit' || key === 'miningDamage' || key === 'thornsDamage' || key === 'fishing' || key === 'dodgeChance' || key === 'criticalHitDamage' || key === 'meleeAndRangeAttackSpeed' || key === 'maxMana') {
+            result[key] = coreKeeperRound(effect);
+        } else if (typeof effect === 'object' && effect.value !== undefined) {
+            if (key === 'healthRegen' || key === 'healthRegenToAllies') {
+                effect.value = parseFloat(effect.value.toFixed(1));
+            } else if (key === 'physicalMeleeDamage' || key === 'physicalRangeDamage' || key === 'meleeAttackSpeed' || key === 'rangeAttackSpeed' || key === 'movementSpeed' || key === 'damage' || key === 'magicDamage' || key === 'minionDamage' || key === 'minionAttackSpeed' || key === 'miningSpeed' || key === 'petDamage') {
+                effect.value = parseFloat(effect.value.toFixed(2));
+            }
+            if (effect.duration !== undefined) {
+                effect.duration = coreKeeperRound(effect.duration);
+            }
+        }
     }
     
     return result;
