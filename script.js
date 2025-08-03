@@ -2159,6 +2159,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 text = 'Immune to mold infection';
             } else if (key === 'immuneToBurning') {
                 text = 'Immune to burning';
+            } else if (key === 'manaRegen') {
+                text = `+${roundValue(effect.value)} Mana for ${roundValue(effect.duration)} minutes`;
             } else {
                 if (typeof effect === 'object' && effect.duration) {
                     text = `${key}: ${effect.value.toFixed(2)} (for ${roundValue(effect.duration)} mins)`;
