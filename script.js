@@ -1876,10 +1876,37 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
 
     combineEffects(effects1, effects2, result);
 
+    // Master Chef bonus applied after base calculation
+    if (masterChefEnabled && resultQuality) {
+        let qualityMultiplier = 1;
+        if (resultQuality === 'rare') {
+            qualityMultiplier = 1.25;
+        } else if (resultQuality === 'epic') {
+            qualityMultiplier = 1.50;
+        }
+        
+        // Check for two golden ingredients (excluding Shiny Larva Meat)
+        if (ingredient1.isGolden && ingredient2.isGolden) {
+            qualityMultiplier += 0.15;
+        }
+
+        for (const key in result) {
+            // Apply multiplier to all effects except permMaxHealth
+            if (key !== 'permMaxHealth' && typeof result[key] === 'object' && result[key].value !== undefined) {
+                result[key].value = result[key].value * qualityMultiplier;
+                if (result[key].duration !== undefined) {
+                    result[key].duration = result[key].duration * qualityMultiplier;
+                }
+            } else if (key === 'food') {
+                result[key] = result[key] * qualityMultiplier;
+            }
+        }
+    }
+
     // Apply the "Utilizing every nutrient" perk
     if (result.food && foodPerkLevel > 0) {
         const foodMultiplier = 1 + (foodPerkLevel * 0.05);
-        result.food = Math.floor(result.food * foodMultiplier);
+        result.food = result.food * foodMultiplier;
     }
     
     // Apply the "Fast food" skill
@@ -1909,7 +1936,7 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
     const isPlantCombo = (ingredient1.isPlant || ingredient2.isPlant);
     if (isPlantCombo && result.food && eatVegetablesPerkLevel > 0) {
         const foodMultiplier = 1 + (eatVegetablesPerkLevel * 0.05);
-        result.food = Math.floor(result.food * foodMultiplier);
+        result.food = result.food * foodMultiplier;
     }
 
     // Apply the "Power of Omega-3!" perk
@@ -1952,23 +1979,6 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
         result.rangeAttackSpeed.duration = Math.max(result.rangeAttackSpeed.duration, sharedDuration);
 
         delete result.meleeAndRangeAttackSpeed;
-    }
-
-    // A final check to round up any values that should be integers
-    for (const key in result) {
-        const effect = result[key];
-        if (key === 'food' || key === 'maxHealth' || key === 'permMaxHealth' || key === 'armor' || key === 'knockbackChance' || key === 'reducedBossDamage' || key === 'lessFoodDrained' || key === 'glow' || key === 'blueGlow' || key === 'magicBarrier' || key === 'minionCriticalHitChance' || key === 'healingRegeneration' || key === 'lifeOnMeleeHit' || key === 'miningDamage' || key === 'thornsDamage' || key === 'fishing' || key === 'dodgeChance' || key === 'criticalHitDamage' || key === 'meleeAndRangeAttackSpeed' || key === 'maxMana') {
-            result[key] = coreKeeperRound(effect);
-        } else if (typeof effect === 'object' && effect.value !== undefined) {
-            if (key === 'healthRegen' || key === 'healthRegenToAllies') {
-                effect.value = parseFloat(effect.value.toFixed(1));
-            } else if (key === 'physicalMeleeDamage' || key === 'physicalRangeDamage' || key === 'meleeAttackSpeed' || key === 'rangeAttackSpeed' || key === 'movementSpeed' || key === 'damage' || key === 'magicDamage' || key === 'minionDamage' || key === 'minionAttackSpeed' || key === 'miningSpeed' || key === 'petDamage') {
-                effect.value = parseFloat(effect.value.toFixed(2));
-            }
-            if (effect.duration !== undefined) {
-                effect.duration = coreKeeperRound(effect.duration);
-            }
-        }
     }
     
     return result;
@@ -2060,7 +2070,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const effect = effects[key];
             const p = document.createElement('p');
             let text = '';
-
+            
             // Custom function to round numbers with the specified logic
             function roundValue(num) {
                 const decimalPart = num - Math.floor(num);
@@ -2070,7 +2080,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return Math.floor(num);
                 }
             }
-            
+
             if (key === 'food') {
                 text = `+${roundValue(effect)} Food Amount`;
             } else if (key === 'healthRegen') {
