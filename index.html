@@ -55,6 +55,16 @@
             margin-left: 20px;
         }
         
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        
+        .button-group button {
+            flex: 1;
+        }
+
         button {
             display: block;
             width: 100%;
@@ -229,15 +239,18 @@
             </div>
         </div>
         
-        <button id="calculateButton">Calculate</button>
-        
+        <div class="button-group">
+            <button id="calculateButton">Calculate</button>
+            <button id="randomButton">Random Result</button>
+        </div>
+
         <h2>Resulting Food Effects</h2>
         <div id="results">
             <!-- Results will be displayed here -->
         </div>
         
         <div class="fine-print">
-            *The Master Chef skill is a 5-25% chance, depending on the skill level and only applies to additional food produced from the cooking pot, therefore, the stats shown by Master Chef are considered an estimation of what a result could be if extra food results in rare or epic food.
+            *The Master Chef skill is a 5-25% chance depending on the skill level and only applies to additional food produced from the cooking pot, therefore the stats shown by Master Chef are considered an estimation of what a result could be if extra food results in rare or epic food.
         </div>
     </div>
 
