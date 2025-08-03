@@ -2160,7 +2160,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (key === 'immuneToBurning') {
                 text = 'Immune to burning';
             } else if (key === 'manaRegen') {
-                text = `+${roundValue(effect.value)} Mana for ${roundValue(effect.duration)} minutes`;
+                text = `+${roundValue(effect.value)} Mana a second for ${roundValue(effect.duration)} minutes`;
             } else {
                 if (typeof effect === 'object' && effect.duration) {
                     text = `${key}: ${effect.value.toFixed(2)} (for ${roundValue(effect.duration)} mins)`;
