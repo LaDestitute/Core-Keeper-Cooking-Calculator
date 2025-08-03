@@ -85,11 +85,40 @@
             margin: 5px 0;
         }
 
-        .sort-control, .perk-control {
+        .perk-control, .sort-control {
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+        
+        .master-chef-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        
+        .master-chef-controls .checkbox-row, .master-chef-controls .radio-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .radio-row {
+            margin-left: 20px;
+        }
+        
+        .fine-print {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 1rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
         }
     </style>
 </head>
@@ -153,7 +182,6 @@
             </select>
         </div>
 
-        <!-- Added a new UI element for the "Power of Omega-3!" skill -->
         <div class="perk-control">
             <label for="omega3PerkLevel">"Power of Omega-3!" skill level:</label>
             <select id="omega3PerkLevel">
@@ -164,6 +192,21 @@
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
+        </div>
+        
+        <div class="master-chef-controls">
+            <div class="checkbox-row">
+                <input type="checkbox" id="masterChefEnabled">
+                <label for="masterChefEnabled">Master Chef skill*</label>
+            </div>
+            <div class="radio-row">
+                <input type="radio" name="resultQuality" value="rare" id="qualityRare" disabled>
+                <label for="qualityRare">Rare Result (+25%)</label>
+            </div>
+            <div class="radio-row">
+                <input type="radio" name="resultQuality" value="epic" id="qualityEpic" disabled>
+                <label for="qualityEpic">Epic Result (+50%)</label>
+            </div>
         </div>
 
         <div class="ingredient-selector">
@@ -191,6 +234,10 @@
         <h2>Resulting Food Effects</h2>
         <div id="results">
             <!-- Results will be displayed here -->
+        </div>
+        
+        <div class="fine-print">
+            *The Master Chef skill is a 5-25% chance, depending on the skill level and only applies to additional food produced from the cooking pot, therefore, the stats shown by Master Chef are considered an estimation of what a result could be if extra food results in rare or epic food.
         </div>
     </div>
 
