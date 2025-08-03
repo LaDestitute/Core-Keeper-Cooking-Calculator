@@ -1811,6 +1811,16 @@ const originalIngredients = [
 let sortedIngredients = [...originalIngredients];
 
 
+// A custom rounding function for Core Keeper's rules
+function coreKeeperRound(value) {
+    const decimalPart = value - Math.floor(value);
+    if (decimalPart >= 0.5) {
+        return Math.ceil(value);
+    } else {
+        return Math.floor(value);
+    }
+}
+
 // --- Step 2: Calculation Logic ---
 function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLevel, fastFoodPerkLevel, longLastingFoodPerkLevel, eatVegetablesPerkLevel, omega3PerkLevel, masterChefEnabled, resultQuality) {
     // Get the original ingredient data to prevent cumulative stacking of perks
@@ -1919,7 +1929,7 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
         const durationMultiplier = 1 + (longLastingFoodPerkLevel * 0.06);
         for (const key in result) {
             if (typeof result[key] === 'object' && result[key].duration !== undefined) {
-                result[key].duration = Math.floor(result[key].duration * durationMultiplier);
+                result[key].duration = result[key].duration * durationMultiplier;
             }
         }
     }
@@ -2062,77 +2072,87 @@ document.addEventListener('DOMContentLoaded', () => {
             const effect = effects[key];
             const p = document.createElement('p');
             let text = '';
+
+            // Custom function to round numbers with the specified logic
+            function roundValue(num) {
+                const decimalPart = num - Math.floor(num);
+                if (decimalPart >= 0.5) {
+                    return Math.ceil(num);
+                } else {
+                    return Math.floor(num);
+                }
+            }
             
             if (key === 'food') {
-                text = `+${effect} Food Amount`;
+                text = `+${roundValue(effect)} Food Amount`;
             } else if (key === 'healthRegen') {
-                text = `+${effect.value.toFixed(1)} Health every second for ${effect.duration} seconds`;
+                text = `+${effect.value.toFixed(1)} Health every second for ${roundValue(effect.duration)} seconds`;
             } else if (key === 'healthRegenToAllies') {
-                text = `+${effect.value} Health every second to you and all nearby allies for ${effect.duration} seconds`;
+                text = `+${roundValue(effect.value)} Health every second to you and all nearby allies for ${roundValue(effect.duration)} seconds`;
             } else if (key === 'maxHealth') {
-                text = `+${effect.value} Max Health for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)} Max Health for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'permMaxHealth') {
-                text = `Perm +${effect.value} Max Health`;
+                text = `Perm +${roundValue(effect.value)} Max Health`;
             } else if (key === 'physicalMeleeDamage') {
-                text = `+${effect.value.toFixed(2)}% Physical Melee Damage for ${effect.duration} minutes`;
+                text = `+${effect.value.toFixed(2)}% Physical Melee Damage for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'physicalRangeDamage') {
-                text = `+${effect.value.toFixed(2)}% Physical Range Damage for ${effect.duration} minutes`;
+                text = `+${effect.value.toFixed(2)}% Physical Range Damage for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'meleeAttackSpeed') {
-                text = `+${effect.value.toFixed(2)}% Melee Attack Speed for ${effect.duration} minutes`;
+                text = `+${effect.value.toFixed(2)}% Melee Attack Speed for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'rangeAttackSpeed') {
-                text = `+${effect.value.toFixed(2)}% Range Attack Speed for ${effect.duration} minutes`;
+                text = `+${effect.value.toFixed(2)}% Range Attack Speed for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'movementSpeed') {
-                text = `+${effect.value.toFixed(2)}% Movement Speed for ${effect.duration} minutes`;
+                text = `+${effect.value.toFixed(2)}% Movement Speed for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'armor') {
-                text = `+${effect.value} Armor for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)} Armor for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'knockbackChance') {
-                text = `+${effect.value}% Chance for Knockback on Melee Hit for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)}% Chance for Knockback on Melee Hit for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'reducedBossDamage') {
-                text = `+${effect.value}% Reduced Damage Taken from Bosses for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)}% Reduced Damage Taken from Bosses for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'damageAgainstBosses') {
-                text = `+${effect.value.toFixed(2)}% Damage Against Bosses for ${effect.duration} minutes`;
+                text = `+${effect.value.toFixed(2)}% Damage Against Bosses for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'lessFoodDrained') {
-                text = `+${effect.value}% Less Food Drained when Running for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)}% Less Food Drained when Running for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'glow') {
-                text = `+${effect.value} Glow for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)} Glow for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'blueGlow') {
-                text = `+${effect.value} Blue Glow for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)} Blue Glow for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'magicDamage') {
-                text = `+${effect.value.toFixed(2)}% Magic Damage for ${effect.duration} minutes`;
+                text = `+${effect.value.toFixed(2)}% Magic Damage for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'magicBarrier') {
-                text = `+${effect.value} Magic Barrier for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)} Magic Barrier for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'minionDamage') {
-                text = `+${effect.value.toFixed(2)}% Minion Damage for ${effect.duration} minutes`;
+                text = `+${effect.value.toFixed(2)}% Minion Damage for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'minionAttackSpeed') {
-                text = `+${effect.value.toFixed(2)}% Minion Attack Speed for ${effect.duration} minutes`;
+                text = `+${effect.value.toFixed(2)}% Minion Attack Speed for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'minionCriticalHitChance') {
-                text = `+${effect.value}% Minion Critical Hit Chance for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)}% Minion Critical Hit Chance for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'healingRegeneration') {
-                text = `+${effect.value}% More Healing from Health over Time Regeneration for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)}% More Healing from Health over Time Regeneration for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'damage') {
-                text = `+${effect.value.toFixed(2)}% Damage for ${effect.duration} minutes`;
+                text = `+${effect.value.toFixed(2)}% Damage for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'criticalHitChance') {
-                text = `+${effect.value}% Critical Hit Chance for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)}% Critical Hit Chance for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'lifeOnMeleeHit') {
-                text = `+${effect.value} Life on Melee Hit for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)} Life on Melee Hit for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'miningDamage') {
-                text = `+${effect.value} Mining Damage for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)} Mining Damage for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'miningSpeed') {
-                text = `+${effect.value.toFixed(2)}% Mining Speed for ${effect.duration} minutes`;
+                text = `+${effect.value.toFixed(2)}% Mining Speed for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'maxMana') {
-                text = `+${effect.value} Max Mana for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)} Max Mana for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'thornsDamage') {
-                text = `+${effect.value} Thorns Damage for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)} Thorns Damage for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'fishing') {
-                text = `+${effect.value} Fishing for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)} Fishing for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'dodgeChance') {
-                text = `+${effect.value}% Dodge Chance for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)}% Dodge Chance for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'criticalHitDamage') {
-                text = `+${effect.value}% Critical Hit Damage for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)}% Critical Hit Damage for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'meleeAndRangeAttackSpeed') {
-                text = `+${effect.value}% Melee and Range Attack Speed for ${effect.duration} minutes`;
+                text = `+${roundValue(effect.value)}% Melee and Range Attack Speed for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'petDamage') {
-                text = `+${effect.value}% Damage dealt by your pet for ${effect.duration} minutes`;
+                text = `+${effect.value.toFixed(2)}% Damage dealt by your pet for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'immuneToSlime') {
                 text = 'Immune to being slowed by slime';
             } else if (key === 'immuneToAcid') {
@@ -2143,7 +2163,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 text = 'Immune to burning';
             } else {
                 if (typeof effect === 'object' && effect.duration) {
-                    text = `${key}: ${effect.value.toFixed(2)} (for ${effect.duration} mins)`;
+                    text = `${key}: ${effect.value.toFixed(2)} (for ${roundValue(effect.duration)} mins)`;
                 } else {
                     text = `${key}: ${effect}`;
                 }
