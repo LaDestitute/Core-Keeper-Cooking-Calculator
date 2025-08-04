@@ -1953,13 +1953,13 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
 
         // Apply bonus to the current damageAgainstBosses value if it exists, otherwise create it
         if (!result.damageAgainstBosses) {
-            result.damageAgainstBosses = { value: 0, duration: 0 };
+            // Check for the maximum duration from both ingredients
+            const maxDuration = Math.max(effects1.damageAgainstBosses?.duration || 0, effects2.damageAgainstBosses?.duration || 0, 10);
+            result.damageAgainstBosses = { value: baseDamageAgainstBosses, duration: maxDuration };
         }
         
         const bonusDamage = baseDamageAgainstBosses * (omega3PerkLevel * 0.03);
         result.damageAgainstBosses.value += bonusDamage;
-        // Ensure duration is set, taking the max of the two ingredients or a default of 10 if neither has it.
-        result.damageAgainstBosses.duration = Math.max(result.damageAgainstBosses.duration, effects1.damageAgainstBosses?.duration || 0, effects2.damageAgainstBosses?.duration || 0, 10);
     }
 
 
@@ -2199,7 +2199,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (key === 'petDamage') {
                 text = `+${effect.value.toFixed(2)}% Damage dealt by your pet for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'manaRegen') {
-                text = `+${roundValue(effect.value)} Mana every second for ${roundValue(effect.duration)} minutes`;
+                text = `+${effect.value.toFixed(1)} Mana every second for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'immuneToSlime') {
                 text = 'Immune to being slowed by slime';
             } else if (key === 'immuneToAcid') {
