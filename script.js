@@ -1958,7 +1958,7 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
             result.damageAgainstBosses = { value: baseDamageAgainstBosses, duration: maxDuration };
         }
         
-        const bonusDamage = baseDamageAgainstBosses * (omega3PerkLevel * 0.03);
+        const bonusDamage = baseDamageAgainstBosses + (omega3PerkLevel * 3);
         result.damageAgainstBosses.value += bonusDamage;
     }
 
