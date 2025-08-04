@@ -1942,7 +1942,7 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
     // Apply the "Power of Omega-3!" perk
     const isFishCombo = (ingredient1.isFish || ingredient2.isFish);
     if (isFishCombo && omega3PerkLevel > 0) {
-        // Find the base damageAgainstBosses value from the combined effects before applying any perks
+        // Find the base damageAgainstBosses value from the combined effects
         let baseDamageAgainstBosses = 0;
         if (effects1.damageAgainstBosses?.value > baseDamageAgainstBosses) {
             baseDamageAgainstBosses = effects1.damageAgainstBosses.value;
@@ -1951,13 +1951,15 @@ function calculateFoodEffects(ing1Id, ing1Rarity, ing2Id, ing2Rarity, foodPerkLe
             baseDamageAgainstBosses = effects2.damageAgainstBosses.value;
         }
 
-        // Create the effect if it doesn't exist and set its base value
+        // Apply bonus to the current damageAgainstBosses value if it exists, otherwise create it
         if (!result.damageAgainstBosses) {
-            result.damageAgainstBosses = { value: baseDamageAgainstBosses, duration: Math.max(effects1.damageAgainstBosses?.duration || 0, effects2.damageAgainstBosses?.duration || 0, 10)};
+            result.damageAgainstBosses = { value: 0, duration: 0 };
         }
         
         const bonusDamage = baseDamageAgainstBosses * (omega3PerkLevel * 0.03);
-        result.damageAgainstBosses.value = result.damageAgainstBosses.value + bonusDamage;
+        result.damageAgainstBosses.value += bonusDamage;
+        // Ensure duration is set, taking the max of the two ingredients or a default of 10 if neither has it.
+        result.damageAgainstBosses.duration = Math.max(result.damageAgainstBosses.duration, effects1.damageAgainstBosses?.duration || 0, effects2.damageAgainstBosses?.duration || 0, 10);
     }
 
 
