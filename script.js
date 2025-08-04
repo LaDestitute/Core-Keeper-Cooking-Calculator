@@ -2199,7 +2199,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (key === 'petDamage') {
                 text = `+${effect.value.toFixed(2)}% Damage dealt by your pet for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'manaRegen') {
-                text = `+${roundValue(effect.value)} mana every second for ${roundValue(effect.duration)} minutes`;
+                text = `+${roundValue(effect.value)} Mana every second for ${roundValue(effect.duration)} minutes`;
             } else if (key === 'immuneToSlime') {
                 text = 'Immune to being slowed by slime';
             } else if (key === 'immuneToAcid') {
